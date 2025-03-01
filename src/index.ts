@@ -18,6 +18,8 @@ setupSwagger(app);
 app.use(
   cors({
     origin: ["http://localhost:5173", "https://stockinc.vercel.app/"],
+    methods: "GET,POST,PUT,DELETE",
+    allowedHeaders: "Content-Type,Authorization",
   })
 );
 app.use(helmet());
