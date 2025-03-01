@@ -15,13 +15,21 @@ app.use(express.json());
 
 setupSwagger(app);
 
+// app.use(
+//   cors({
+//     origin: ["http://localhost:5173", "https://stockinc.vercel.app/"],
+//     methods: "GET,POST,PUT,DELETE",
+//     allowedHeaders: "Content-Type,Authorization",
+//   })
+// );
 app.use(
   cors({
-    origin: ["http://localhost:5173", "https://stockinc.vercel.app/"],
+    origin: ["*"],
     methods: "GET,POST,PUT,DELETE",
     allowedHeaders: "Content-Type,Authorization",
   })
 );
+
 app.use(helmet());
 app.use(morgan("dev"));
 
