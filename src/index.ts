@@ -45,11 +45,10 @@ const limiter = rateLimit({
 app.use(limiter);
 
 // middlware for checking API key
-app.use(checkApiKey);
 
 // Routes
-app.use("/stocks", stockRouter);
-app.use("/watchlist", watchlistRouter);
+app.use("/stocks", checkApiKey, stockRouter);
+app.use("/watchlist", checkApiKey, watchlistRouter);
 
 app.get("/", (req: Request, res: Response) => {
   res.send("Hello, TypeScript with Express!");
