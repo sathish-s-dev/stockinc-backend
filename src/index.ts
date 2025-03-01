@@ -5,6 +5,8 @@ import cors from "cors";
 import helmet from "helmet";
 import morgan from "morgan";
 import { setupSwagger } from "./config/swagger";
+import checkApiKey from "./middlewares/checkApiKey";
+import rateLimit from "express-rate-limit";
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -21,6 +23,20 @@ app.use(
 app.use(helmet());
 app.use(morgan("dev"));
 
+// Apply rate limiting globally
+const limiter = rateLimit({
+  windowMs: 5 * 60 * 1000, // 5 minutes
+  max: 100, // Limit each IP to 100 requests per windowMs
+  message: "Too many requests from this IP, please try again later.",
+  headers: true, // Include rate limit info in headers
+});
+
+// Apply rate limiting to all routes globally
+app.use(limiter);
+
+// middlware for checking API key
+app.use(checkApiKey);
+
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
@@ -28,6 +44,7 @@ app.use((req, res, next) => {
   next();
 });
 
+// Routes
 app.use("/stocks", stockRouter);
 app.use("/watchlist", watchlistRouter);
 
