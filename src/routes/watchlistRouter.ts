@@ -2,6 +2,7 @@ import { Router } from "express";
 import {
   addStockToWatchlist,
   getWatchlistStocks,
+  removeStockToWatchlist,
 } from "../controllers/watchlistController";
 
 export const watchlistRouter = Router();
@@ -61,13 +62,14 @@ watchlistRouter.get("/", getWatchlistStocks);
  *                 data:
  *                   type: object
  *                   properties:
-*                       id:
-*                         type: number
-*                       name:
-*                         type: string
-*                       email:
-*                         type: string
+ *                       id:
+ *                         type: number
+ *                       name:
+ *                         type: string
+ *                       email:
+ *                         type: string
  *       500:
  *         description: Internal server error
  */
-watchlistRouter.post("/add", addStockToWatchlist);
+watchlistRouter.post("/remove/:symbol", removeStockToWatchlist);
+watchlistRouter.post("/:symbol", addStockToWatchlist);

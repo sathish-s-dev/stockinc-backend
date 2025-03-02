@@ -1,9 +1,11 @@
 import { Request, Response, Router } from "express";
-import { getStocksController } from "../controllers/stocksController";
+import {
+  getStocksList,
+  getStock,
+  getSymbols,
+} from "../controllers/stocksController";
 
 export const stockRouter = Router();
-
-
 
 /**
  * @swagger
@@ -38,4 +40,6 @@ export const stockRouter = Router();
  *         description: Internal server error
  */
 
-stockRouter.get("/", getStocksController);
+stockRouter.get("/symbols", getSymbols);
+stockRouter.get("/:symbol", getStock);
+stockRouter.get("/", getStocksList);

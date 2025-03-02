@@ -4,7 +4,6 @@ export interface SuccessResponse<T> {
   data: T;
 }
 
-
 export interface ErrorResponse {
   success: false;
   message: string;
@@ -12,8 +11,8 @@ export interface ErrorResponse {
   errors?: any;
 }
 
-
 export interface Stock {
+  id: number;
   symbol: string;
   company: string;
   sector: string;
@@ -25,15 +24,4 @@ export interface Stock {
   volume: string;
   pe_ratio: number;
   dividend_yield: number;
-  candlestick_data: {
-    date: string;
-    open: string;
-    high: string;
-    low: string;
-    close: string;
-    "adjusted close": string;
-    volume: string;
-    "dividend amount": string;
-    "split coefficient": string;
-  }[];
 }
